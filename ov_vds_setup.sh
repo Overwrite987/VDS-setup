@@ -71,10 +71,14 @@ apt upgrade -y
 
 echo "17. Установка Temurin JDK"
 # Запрос пользователя о версии Temurin JDK
-read -p "Выберите номер версии Temurin JDK (например, 11, 17 и т.д.): " temurin_version
+read -p "Выберите номер версии Temurin JDK (например, 11, 17 и т.д., или -1 для пропуска): " temurin_version
 
-# Установка Temurin JDK
-apt install temurin-${temurin_version}-jdk -y
+if [ "$temurin_version" = "-1" ]; then
+  echo "Установка Temurin JDK пропущена."
+else
+  echo "Устанавливается Temurin JDK версии $temurin_version..."
+  apt install temurin-${temurin_version}-jdk -y
+fi
 
 echo "18. Удаляем излишки..."
 apt remove qemu-guest-agent -y
